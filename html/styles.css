@@ -1,0 +1,362 @@
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --liquid-glass-bg: rgba(255, 255, 255, 0.8);
+  --liquid-glass-border: rgba(255, 255, 255, 0.9);
+  --liquid-glass-shadow: rgba(0, 0, 0, 0.1);
+  --liquid-ripple-color: rgba(255, 255, 255, 0.7);
+  --liquid-flow-duration: 0.8s;
+  --liquid-bounce-duration: 0.6s;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden;
+}
+
+.liquid-glass {
+  background: var(--liquid-glass-bg);
+  border-radius: 16px;
+  /* Simplified to clean matte glass with minimal shadows */
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  transition: all var(--liquid-flow-duration) cubic-bezier(0.23, 1, 0.32, 1);
+  position: relative;
+  transform-origin: center center;
+  overflow: hidden;
+}
+
+/* Removed complex gradient overlays for cleaner look */
+.liquid-glass::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: inherit;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Removed ::after pseudo-element for cleaner appearance */
+
+#liquid-textui-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.liquid-textui-element {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0.7) translateY(30px);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.liquid-textui-element.show {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+.liquid-textui-element.hide {
+  opacity: 0;
+  transform: scale(0.8) translateY(-20px);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.liquid-textui-content {
+  padding: 20px 36px;
+  border-radius: 16px;
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 16px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  white-space: nowrap;
+  max-width: 500px;
+  text-align: left;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  min-height: 24px;
+}
+
+.liquid-textui-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 0 0 16px 16px;
+  z-index: 3;
+  transition: width linear;
+  /* Removed glow from progress bar */
+}
+
+.liquid-textui-icon {
+  font-size: 20px;
+  opacity: 0.9;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: iconBounce 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.2s both;
+  margin-left: -16px;
+}
+
+.liquid-textui-text {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  line-height: 1.4;
+}
+
+@keyframes iconBounce {
+  0% {
+    transform: scale(0) rotate(-90deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.9;
+  }
+}
+
+.liquid-textui-center {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.7) translateY(30px);
+}
+
+.liquid-textui-center.show {
+  transform: translate(-50%, -50%) scale(1) translateY(0);
+}
+
+.liquid-textui-middle-left {
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%) scale(0.7) translateX(-30px);
+}
+
+.liquid-textui-middle-left.show {
+  transform: translateY(-50%) scale(1) translateX(0);
+}
+
+.liquid-textui-middle-right {
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%) scale(0.7) translateX(30px);
+}
+
+.liquid-textui-middle-right.show {
+  transform: translateY(-50%) scale(1) translateX(0);
+}
+
+.liquid-textui-top-left {
+  top: 0;
+  left: 0;
+  transform: scale(0.7) translateY(-30px) translateX(-30px);
+}
+
+.liquid-textui-top-left.show {
+  transform: scale(1) translateY(0) translateX(0);
+}
+
+.liquid-textui-top-center {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%) scale(0.7) translateY(-30px);
+}
+
+.liquid-textui-top-center.show {
+  transform: translateX(-50%) scale(1) translateY(0);
+}
+
+.liquid-textui-top-right {
+  top: 0;
+  right: 0;
+  transform: scale(0.7) translateY(-30px) translateX(30px);
+}
+
+.liquid-textui-top-right.show {
+  transform: scale(1) translateY(0) translateX(0);
+}
+
+/* Simplified pulse animation with minimal glow */
+@keyframes liquidPulse {
+  0%,
+  100% {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  }
+  50% {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  }
+}
+
+.liquid-textui-pulse .liquid-glass {
+  animation: liquidPulse 2s ease-in-out infinite;
+}
+
+.liquid-textui-small .liquid-textui-content {
+  padding: 12px 24px;
+  font-size: 14px;
+  gap: 10px;
+  border-radius: 12px;
+}
+
+.liquid-textui-small .liquid-glass {
+  border-radius: 12px;
+}
+
+.liquid-textui-small .liquid-textui-icon {
+  font-size: 1em;
+}
+
+.liquid-textui-large .liquid-textui-content {
+  padding: 24px 44px;
+  font-size: 22px;
+  font-weight: 600;
+  gap: 20px;
+  border-radius: 20px;
+}
+
+.liquid-textui-large .liquid-glass {
+  border-radius: 20px;
+}
+
+.liquid-textui-large .liquid-textui-icon {
+  font-size: 1.6em;
+}
+
+.liquid-textui-success .liquid-glass {
+  background: rgba(16, 185, 129, 0.8);
+  border-color: rgba(16, 185, 129, 0.9);
+}
+
+.liquid-textui-success .liquid-textui-icon {
+  color: rgba(255, 255, 255, 1);
+}
+
+.liquid-textui-success .liquid-textui-progress {
+  background: rgba(16, 185, 129, 0.9);
+}
+
+.liquid-textui-warning .liquid-glass {
+  background: rgba(245, 158, 11, 0.8);
+  border-color: rgba(245, 158, 11, 0.9);
+}
+
+.liquid-textui-warning .liquid-textui-icon {
+  color: rgba(255, 255, 255, 1);
+}
+
+.liquid-textui-warning .liquid-textui-progress {
+  background: rgba(245, 158, 11, 0.9);
+}
+
+.liquid-textui-error .liquid-glass {
+  background: rgba(220, 38, 38, 0.8);
+  border-color: rgba(220, 38, 38, 0.9);
+}
+
+.liquid-textui-error .liquid-textui-icon {
+  color: rgba(255, 255, 255, 1);
+}
+
+.liquid-textui-error .liquid-textui-progress {
+  background: rgba(220, 38, 38, 0.9);
+}
+
+.liquid-textui-info .liquid-glass {
+  background: rgba(37, 99, 235, 0.8);
+  border-color: rgba(37, 99, 235, 0.9);
+}
+
+.liquid-textui-info .liquid-textui-icon {
+  color: rgba(255, 255, 255, 1);
+}
+
+.liquid-textui-info .liquid-textui-progress {
+  background: rgba(37, 99, 235, 0.9);
+}
+
+.liquid-textui-purple .liquid-glass {
+  background: rgba(147, 51, 234, 0.8);
+  border-color: rgba(147, 51, 234, 0.9);
+}
+
+.liquid-textui-purple .liquid-textui-icon {
+  color: rgba(255, 255, 255, 1);
+}
+
+.liquid-textui-purple .liquid-textui-progress {
+  background: rgba(147, 51, 234, 0.9);
+}
+
+.liquid-textui-pink .liquid-glass {
+  background: rgba(219, 39, 119, 0.8);
+  border-color: rgba(219, 39, 119, 0.9);
+}
+
+.liquid-textui-pink .liquid-textui-icon {
+  color: rgba(255, 255, 255, 1);
+}
+
+.liquid-textui-pink .liquid-textui-progress {
+  background: rgba(219, 39, 119, 0.9);
+}
+
+.liquid-textui-cyan .liquid-glass {
+  background: rgba(6, 182, 212, 0.8);
+  border-color: rgba(6, 182, 212, 0.9);
+}
+
+.liquid-textui-cyan .liquid-textui-icon {
+  color: rgba(255, 255, 255, 1);
+}
+
+.liquid-textui-cyan .liquid-textui-progress {
+  background: rgba(6, 182, 212, 0.9);
+}
+
+.liquid-textui-orange .liquid-glass {
+  background: rgba(234, 88, 12, 0.8);
+  border-color: rgba(234, 88, 12, 0.9);
+}
+
+.liquid-textui-orange .liquid-textui-icon {
+  color: rgba(255, 255, 255, 1);
+}
+
+.liquid-textui-orange .liquid-textui-progress {
+  background: rgba(234, 88, 12, 0.9);
+}
+
+.liquid-textui-element:not(.liquid-textui-success):not(.liquid-textui-warning):not(.liquid-textui-error):not(
+    .liquid-textui-info
+  ):not(.liquid-textui-purple):not(.liquid-textui-pink):not(.liquid-textui-cyan):not(.liquid-textui-orange)
+  .liquid-textui-icon {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.liquid-textui-element:not(.liquid-textui-success):not(.liquid-textui-warning):not(.liquid-textui-error):not(
+    .liquid-textui-info
+  ):not(.liquid-textui-purple):not(.liquid-textui-pink):not(.liquid-textui-cyan):not(.liquid-textui-orange)
+  .liquid-textui-progress {
+  background: rgba(255, 255, 255, 0.8);
+}
