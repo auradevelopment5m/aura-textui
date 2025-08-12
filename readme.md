@@ -23,9 +23,9 @@ A beautiful, modern text UI system for FiveM with liquid glass aesthetics and sm
 ### ShowTextUI
 Display a text UI with customizable options.
 
-\`\`\`lua
+```lua
 exports['aura-textui']:ShowTextUI(text, position, type, duration, icon, permanent)
-\`\`\`
+```
 
 **Parameters:**
 - `text` (string): The text to display
@@ -38,9 +38,9 @@ exports['aura-textui']:ShowTextUI(text, position, type, duration, icon, permanen
 ### HideTextUI
 Hide the currently displayed text UI.
 
-\`\`\`lua
+```lua
 exports['aura-textui']:HideTextUI()
-\`\`\`
+```
 
 ## Positions
 
@@ -66,7 +66,7 @@ exports['aura-textui']:HideTextUI()
 ## Usage Examples
 
 ### Basic Usage
-\`\`\`lua
+```lua
 -- Simple text display
 exports['aura-textui']:ShowTextUI('Hello World!')
 
@@ -75,10 +75,10 @@ exports['aura-textui']:ShowTextUI('Success message!', 'top-center', 'success')
 
 -- With icon and duration (5 seconds)
 exports['aura-textui']:ShowTextUI('Loading...', 'center', 'info', 5000, 'fas fa-spinner')
-\`\`\`
+```
 
 ### Advanced Usage
-\`\`\`lua
+```lua
 -- Permanent text UI (stays until manually hidden)
 exports['aura-textui']:ShowTextUI('Press F to interact', 'middle-right', 'warning', 0, 'fas fa-hand-paper', true)
 
@@ -87,10 +87,10 @@ exports['aura-textui']:ShowTextUI('Item received!', 'top-right', 'success', 3000
 
 -- Hide the current text UI
 exports['aura-textui']:HideTextUI()
-\`\`\`
+```
 
 ### Common Use Cases
-\`\`\`lua
+```lua
 -- Interaction prompts
 exports['aura-textui']:ShowTextUI('Press E to enter vehicle', 'center', 'info', 0, 'fas fa-car', true)
 
@@ -102,7 +102,7 @@ exports['aura-textui']:ShowTextUI('Low health!', 'middle-left', 'error', 0, 'fas
 
 -- Status updates
 exports['aura-textui']:ShowTextUI('Connecting to server...', 'center', 'default', 0, 'fas fa-wifi', true)
-\`\`\`
+```
 
 ## Test Commands
 
