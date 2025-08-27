@@ -19,7 +19,6 @@ body {
 .liquid-glass {
   background: var(--liquid-glass-bg);
   border-radius: 16px;
-  /* Simplified to clean matte glass with minimal shadows */
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.5);
   transition: all var(--liquid-flow-duration) cubic-bezier(0.23, 1, 0.32, 1);
   position: relative;
@@ -27,7 +26,6 @@ body {
   overflow: hidden;
 }
 
-/* Removed complex gradient overlays for cleaner look */
 .liquid-glass::before {
   content: "";
   position: absolute;
@@ -41,7 +39,6 @@ body {
   z-index: 1;
 }
 
-/* Removed ::after pseudo-element for cleaner appearance */
 
 #liquid-textui-container {
   position: fixed;
@@ -100,7 +97,6 @@ body {
   border-radius: 0 0 16px 16px;
   z-index: 3;
   transition: width linear;
-  /* Removed glow from progress bar */
 }
 
 .liquid-textui-icon {
